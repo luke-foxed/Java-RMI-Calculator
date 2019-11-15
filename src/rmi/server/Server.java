@@ -16,7 +16,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Server extends UnicastRemoteObject implements Interface {
 
-
     private static final long serialVersionUID = -3363284187844134696L;
 
     public Server() throws RemoteException {
@@ -29,8 +28,18 @@ public class Server extends UnicastRemoteObject implements Interface {
     }
 
     public String minus(int val1, int val2) throws RemoteException {
-    String result = String.valueOf(val1 - val2);
-    return result;
+        String result = String.valueOf(val1 - val2);
+        return result;
+    }
+
+    public String divide(int val1, int val2) {
+        String result = String.valueOf((float)val1 / val2);
+        return result;
+    }
+
+    public String multiply(int val1, int val2) throws RemoteException {
+        String result = String.valueOf(val1 * val2);
+        return result;
     }
 
     public static void main(String args[]) {
@@ -48,7 +57,7 @@ public class Server extends UnicastRemoteObject implements Interface {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 System.exit(0);
-              }
-          });
+            }
+        });
     }
 }

@@ -16,9 +16,8 @@ import java.util.logging.Logger;
  */
 public class Client extends javax.swing.JFrame {
 
-    String serverResult = "";
     static Interface obj = null;
-
+    String serverResult = "";
     String selectedOperator = "";
     int value1 = 0;
     int value2 = 0;
@@ -143,6 +142,11 @@ public class Client extends javax.swing.JFrame {
 
         jButton11.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jButton11.setText("/");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton13.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jButton13.setText("-");
@@ -154,6 +158,11 @@ public class Client extends javax.swing.JFrame {
 
         jButton14.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jButton14.setText("x");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jButtonEqual.setText("=");
         jButtonEqual.addActionListener(new java.awt.event.ActionListener() {
@@ -276,7 +285,6 @@ public class Client extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonEqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEqualActionPerformed
-        
         performOperation(selectedOperator, value1, value2);
     }//GEN-LAST:event_jButtonEqualActionPerformed
 
@@ -327,6 +335,14 @@ public class Client extends javax.swing.JFrame {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         setOperation("-");
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        setOperation("/");
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        setOperation("x");
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -398,26 +414,16 @@ public class Client extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void setValue(String value) {
-//        if (value1 == 0) { 
-//            value1 = Integer.parseInt(value);
-//            jTextAreaResult.append(value);
-//        } else if (value2 == -1) {
-//            value2 = Integer.parseInt(value);
-//            jTextAreaResult.append(value);
-//        } else {
-//            System.out.println("Only two operations allowed");
-//        }
-
         jTextAreaResult.append(value);
     }
-    
-    private void reset(){
+
+    private void reset() {
         jTextAreaResult.setText("");
         selectedOperator = "";
-        value1=-1;
-        value2=-1;
+        value1 = -1;
+        value2 = -1;
     }
-    
+
     private String setOperation(String operator) {
         value1 = Integer.valueOf(jTextAreaResult.getText().strip());
         jTextAreaResult.setText("");
@@ -429,20 +435,16 @@ public class Client extends javax.swing.JFrame {
         val2 = Integer.valueOf(jTextAreaResult.getText().strip());
         if (val1 == -1 || val2 == -1) {
             System.out.println("Please enter both numbers");
-        } 
-        
-        else if(operator.equals("")) {
+        } else if (operator.equals("")) {
             System.out.println("Please select an operator");
-        }
-        
-        else {
+        } else {
             switch (operator) {
                 case "+": {
                     try {
                         serverResult = obj.add(val1, val2);
                         jTextAreaResult.setText(serverResult);
                     } catch (RemoteException ex) {
-                        Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                        System.err.println("RMI Error: " + ex.getMessage());
                     }
                     break;
                 }
@@ -451,8 +453,31 @@ public class Client extends javax.swing.JFrame {
                         serverResult = obj.minus(val1, val2);
                         jTextAreaResult.setText(serverResult);
                     } catch (RemoteException ex) {
-                        Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                        System.err.println("RMI Error: " + ex.getMessage());
                     }
+
+                    break;
+                }
+
+                case "/": {
+                    try {
+                        serverResult = obj.divide(val1, val2);
+                        jTextAreaResult.setText(serverResult);
+                    } catch (RemoteException ex) {
+                        System.err.println("RMI Error: " + ex.getMessage());
+                    }
+
+                    break;
+                }
+                case "x": {
+                    try {
+                        serverResult = obj.multiply(val1, val2);
+                        jTextAreaResult.setText(serverResult);
+                    } catch (RemoteException ex) {
+                        System.err.println("RMI Error: " + ex.getMessage());
+                    }
+
+                    break;
                 }
             }
         }
