@@ -376,7 +376,7 @@ public class Client extends javax.swing.JFrame {
             obj = (Interface) Naming.lookup("//"
                     + "localhost"
                     + "/HelloWorld");
-            System.out.println(obj);
+            System.out.println(obj.startup());
         } catch (Exception e) {
             System.out.println("Client exception: "
                     + e.getMessage());
