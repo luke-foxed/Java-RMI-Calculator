@@ -120,28 +120,36 @@ public class Server extends UnicastRemoteObject implements Interface {
         }
     }
 
-    public String add(int val1, int val2) {
-        String result = String.valueOf(val1 + val2);
-        writeToServer("+", val1, val2, result);
-        return result;
+    public String[] add(int val1, int val2) {
+        String[] response = new String[2];
+        response[0] = "Returning add operation from server";
+        response[1] = String.valueOf(val1 + val2);
+        writeToServer("+", val1, val2, response[1]);
+        return response;
     }
 
-    public String minus(int val1, int val2) throws RemoteException {
-        String result = String.valueOf(val1 - val2);
-        writeToServer("-", val1, val2, result);
-        return result;
+    public String[] minus(int val1, int val2) throws RemoteException {
+        String[] response = new String[2];
+        response[0] = "Returning subtract operation from server";
+        response[1] = String.valueOf(val1 - val2);
+        writeToServer("-", val1, val2, response[1]);
+        return response;
     }
 
-    public String divide(int val1, int val2) {
-        String result = String.valueOf((float) val1 / val2);
-        writeToServer("/", val1, val2, result);
-        return result;
+    public String[] divide(int val1, int val2) {
+        String[] response = new String[2];
+        response[0] = "Returning divide operation from server";
+        response[1] = String.valueOf(val1 / val2);
+        writeToServer("/", val1, val2, response[1]);
+        return response;
     }
 
-    public String multiply(int val1, int val2) throws RemoteException {
-        String result = String.valueOf(val1 * val2);
-        writeToServer("*", val1, val2, result);
-        return result;
+    public String[] multiply(int val1, int val2) throws RemoteException {
+        String[] response = new String[2];
+        response[0] = "Returning multiply operation from server";
+        response[1] = String.valueOf(val1 * val2);
+        writeToServer("*", val1, val2, response[1]);
+        return response;
     }
 
     public static void main(String args[]) throws RemoteException, ServerNotActiveException {

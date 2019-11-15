@@ -7,8 +7,6 @@ package rmi.server;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,10 +15,10 @@ import java.util.logging.Logger;
 public class Client extends javax.swing.JFrame {
 
     static Interface obj = null;
-    String serverResult = "";
+    String[] serverResult = new String[2];
     String selectedOperator = "";
-    int value1 = 0;
-    int value2 = 0;
+    int value1 = -1;
+    int value2 = -1;
 
     /**
      * Creates new form MainLayout
@@ -50,18 +48,21 @@ public class Client extends javax.swing.JFrame {
         jButtonNum3 = new javax.swing.JButton();
         jButtonNum0 = new javax.swing.JButton();
         jButtonAdd = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        jButtonDivide = new javax.swing.JButton();
+        jButtonSubtract = new javax.swing.JButton();
+        jButtonMultiply = new javax.swing.JButton();
         jButtonEqual = new javax.swing.JButton();
         jButtonReset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaResult = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        jTextFieldServerResponse = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(71, 171, 231));
 
+        jButtonNum7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum7.setText("7");
         jButtonNum7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +70,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum8.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum8.setText("8");
         jButtonNum8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +78,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum9.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum9.setText("9");
         jButtonNum9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +86,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum4.setText("4");
         jButtonNum4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +94,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum5.setText("5");
         jButtonNum5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +102,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum6.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum6.setText("6");
         jButtonNum6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +110,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum2.setText("2");
         jButtonNum2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +118,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum1.setText("1");
         jButtonNum1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +126,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum3.setText("3");
         jButtonNum3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +134,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonNum0.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jButtonNum0.setText("0");
         jButtonNum0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +142,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
-        jButtonAdd.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jButtonAdd.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
         jButtonAdd.setText("+");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,30 +150,31 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
-        jButton11.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jButton11.setText("/");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDivide.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jButtonDivide.setText("/");
+        jButtonDivide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jButtonDivideActionPerformed(evt);
             }
         });
 
-        jButton13.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jButton13.setText("-");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSubtract.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jButtonSubtract.setText("-");
+        jButtonSubtract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                jButtonSubtractActionPerformed(evt);
             }
         });
 
-        jButton14.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        jButton14.setText("x");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        jButtonMultiply.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jButtonMultiply.setText("x");
+        jButtonMultiply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                jButtonMultiplyActionPerformed(evt);
             }
         });
 
+        jButtonEqual.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jButtonEqual.setText("=");
         jButtonEqual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,6 +182,7 @@ public class Client extends javax.swing.JFrame {
             }
         });
 
+        jButtonReset.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jButtonReset.setText("C");
         jButtonReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,12 +196,12 @@ public class Client extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonDivide, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                    .addComponent(jButtonSubtract, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                    .addComponent(jButtonMultiply, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                    .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonNum4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,19 +217,19 @@ public class Client extends javax.swing.JFrame {
                         .addComponent(jButtonNum9, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonNum1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                            .addComponent(jButtonNum0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButtonNum1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonNum0, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonNum2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonNum3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonEqual, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(51, 51, 51))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,39 +254,63 @@ public class Client extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonSubtract, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonDivide, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonNum0, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEqual, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jButtonMultiply, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTextAreaResult.setEditable(false);
         jTextAreaResult.setColumns(20);
-        jTextAreaResult.setRows(5);
+        jTextAreaResult.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jTextAreaResult.setRows(1);
+        jTextAreaResult.setAutoscrolls(false);
         jScrollPane1.setViewportView(jTextAreaResult);
+
+        jPanel2.setBackground(new java.awt.Color(210, 142, 255));
+
+        jTextFieldServerResponse.setEditable(false);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextFieldServerResponse)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jTextFieldServerResponse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -332,17 +368,17 @@ public class Client extends javax.swing.JFrame {
         reset();
     }//GEN-LAST:event_jButtonResetActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void jButtonSubtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubtractActionPerformed
         setOperation("-");
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_jButtonSubtractActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void jButtonDivideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDivideActionPerformed
         setOperation("/");
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_jButtonDivideActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void jButtonMultiplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMultiplyActionPerformed
         setOperation("x");
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_jButtonMultiplyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,11 +428,10 @@ public class Client extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonDivide;
     private javax.swing.JButton jButtonEqual;
+    private javax.swing.JButton jButtonMultiply;
     private javax.swing.JButton jButtonNum0;
     private javax.swing.JButton jButtonNum1;
     private javax.swing.JButton jButtonNum2;
@@ -408,9 +443,12 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNum8;
     private javax.swing.JButton jButtonNum9;
     private javax.swing.JButton jButtonReset;
+    private javax.swing.JButton jButtonSubtract;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaResult;
+    private javax.swing.JTextField jTextFieldServerResponse;
     // End of variables declaration//GEN-END:variables
 
     private void setValue(String value) {
@@ -419,64 +457,70 @@ public class Client extends javax.swing.JFrame {
 
     private void reset() {
         jTextAreaResult.setText("");
+        jTextFieldServerResponse.setText("");
         selectedOperator = "";
         value1 = -1;
         value2 = -1;
     }
 
     private String setOperation(String operator) {
-        value1 = Integer.valueOf(jTextAreaResult.getText().strip());
-        jTextAreaResult.setText("");
-        selectedOperator = operator;
+        if (jTextAreaResult.getText().strip().equals("")) {
+            System.out.println("Please enter the first value");
+        } else {
+            value1 = Integer.valueOf(jTextAreaResult.getText().strip());
+            jTextAreaResult.setText("");
+            selectedOperator = operator;
+        }
         return selectedOperator;
     }
 
     private void performOperation(String operator, int val1, int val2) {
-        val2 = Integer.valueOf(jTextAreaResult.getText().strip());
-        if (val1 == -1 || val2 == -1) {
-            System.out.println("Please enter both numbers");
+        if (jTextAreaResult.getText().strip().equals("")) {
+            System.out.println("Missing values!");
         } else if (operator.equals("")) {
             System.out.println("Please select an operator");
         } else {
+            val2 = Integer.valueOf(jTextAreaResult.getText().strip());
             switch (operator) {
                 case "+": {
                     try {
                         serverResult = obj.add(val1, val2);
-                        jTextAreaResult.setText(serverResult);
-                    } catch (RemoteException ex) {
-                        System.err.println("RMI Error: " + ex.getMessage());
+                        jTextFieldServerResponse.setText(serverResult[0]);
+                        jTextAreaResult.setText(serverResult[1]);
+                    } catch (RemoteException | NullPointerException ex) {
+                        System.out.println("Error: " + ex.getMessage());
                     }
                     break;
                 }
                 case "-": {
                     try {
                         serverResult = obj.minus(val1, val2);
-                        jTextAreaResult.setText(serverResult);
-                    } catch (RemoteException ex) {
-                        System.err.println("RMI Error: " + ex.getMessage());
+                        jTextFieldServerResponse.setText(serverResult[0]);
+                        jTextAreaResult.setText(serverResult[1]);
+                    } catch (RemoteException | NullPointerException ex) {
+                        System.out.println("Error: " + ex.getMessage());
                     }
-
                     break;
                 }
 
                 case "/": {
                     try {
                         serverResult = obj.divide(val1, val2);
-                        jTextAreaResult.setText(serverResult);
-                    } catch (RemoteException ex) {
-                        System.err.println("RMI Error: " + ex.getMessage());
+                        jTextFieldServerResponse.setText(serverResult[0]);
+                        jTextAreaResult.setText(serverResult[1]);
+                    } catch (RemoteException | NullPointerException ex) {
+                        System.out.println("Error: " + ex.getMessage());
                     }
-
                     break;
                 }
                 case "x": {
                     try {
                         serverResult = obj.multiply(val1, val2);
-                        jTextAreaResult.setText(serverResult);
-                    } catch (RemoteException ex) {
-                        System.err.println("RMI Error: " + ex.getMessage());
+                        jTextFieldServerResponse.setText(serverResult[0]);
+                        jTextAreaResult.setText(serverResult[1]);
+                    } catch (RemoteException | NullPointerException ex) {
+                        System.out.println("Error: " + ex.getMessage());
                     }
-
                     break;
                 }
             }
