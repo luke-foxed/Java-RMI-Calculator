@@ -57,6 +57,7 @@ public class Client extends javax.swing.JFrame {
         jTextAreaResult = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldServerResponse = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -277,21 +278,30 @@ public class Client extends javax.swing.JFrame {
 
         jTextFieldServerResponse.setEditable(false);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Server Message:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextFieldServerResponse)
+                .addComponent(jTextFieldServerResponse, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldServerResponse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -416,7 +426,6 @@ public class Client extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Client exception: "
                     + e.getMessage());
-
         }
 
         /* Create and display the form */
@@ -444,6 +453,7 @@ public class Client extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNum9;
     private javax.swing.JButton jButtonReset;
     private javax.swing.JButton jButtonSubtract;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -487,6 +497,7 @@ public class Client extends javax.swing.JFrame {
                         serverResult = obj.add(val1, val2);
                         jTextFieldServerResponse.setText(serverResult[0]);
                         jTextAreaResult.setText(serverResult[1]);
+                        
                     } catch (RemoteException | NullPointerException ex) {
                         System.out.println("Error: " + ex.getMessage());
                     }
@@ -502,7 +513,6 @@ public class Client extends javax.swing.JFrame {
                     }
                     break;
                 }
-
                 case "/": {
                     try {
                         serverResult = obj.divide(val1, val2);
@@ -523,7 +533,9 @@ public class Client extends javax.swing.JFrame {
                     }
                     break;
                 }
+                
             }
+            selectedOperator = "";
         }
     }
 }

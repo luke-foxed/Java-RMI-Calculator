@@ -38,7 +38,7 @@ public class Server extends UnicastRemoteObject implements Interface {
         try {
             registry = LocateRegistry.createRegistry(1099);
             registry.rebind("HelloWorld", this);
-            System.out.println("Server bound in registry");
+            serverLog.append("Server bound in registry\n\n");
         } catch (Exception e) {
             System.out.println("Server error: " + e.getMessage());
             e.printStackTrace();
@@ -54,6 +54,8 @@ public class Server extends UnicastRemoteObject implements Interface {
         JButton stopServerBtn = new JButton("STOP");
         JLabel header = new JLabel("SERVER LOGS");
         JScrollPane scrollPane = new JScrollPane(serverLog);
+        
+        serverLog.setEditable(false);
         
         scrollPane.setBounds(3, 3, 600, 300);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
