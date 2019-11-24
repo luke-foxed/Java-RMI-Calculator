@@ -7,6 +7,7 @@ package rmi.server;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import javax.swing.JFrame;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Client extends javax.swing.JFrame {
     String selectedOperator = "";
     int value1 = -1;
     int value2 = -1;
-
+    
     /**
      * Creates new form MainLayout
      */
@@ -60,6 +61,7 @@ public class Client extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Client");
 
         jPanel1.setBackground(new java.awt.Color(71, 171, 231));
 
@@ -417,7 +419,7 @@ public class Client extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         try {
             obj = (Interface) Naming.lookup("//"
                     + "localhost"
