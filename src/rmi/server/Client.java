@@ -476,10 +476,10 @@ public class Client extends javax.swing.JFrame {
     }
 
     private String setOperation(String operator) {
-        if (jTextAreaResult.getText().strip().equals("")) {
-            System.out.println("Please enter the first value");
+        if (jTextAreaResult.getText().trim().equals("")) {
+            System.out.println("Please enter a value");
         } else {
-            value1 = Integer.valueOf(jTextAreaResult.getText().strip());
+            value1 = Integer.valueOf(jTextAreaResult.getText().trim());
             jTextAreaResult.setText("");
             selectedOperator = operator;
         }
@@ -487,12 +487,12 @@ public class Client extends javax.swing.JFrame {
     }
 
     private void performOperation(String operator, int val1, int val2) {
-        if (jTextAreaResult.getText().strip().equals("")) {
+        if (jTextAreaResult.getText().trim().equals("")) {
             System.out.println("Missing values!");
         } else if (operator.equals("")) {
             System.out.println("Please select an operator");
         } else {
-            val2 = Integer.valueOf(jTextAreaResult.getText().strip());
+            val2 = Integer.valueOf(jTextAreaResult.getText().trim());
             switch (operator) {
                 case "+": {
                     try {
